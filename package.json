@@ -1,0 +1,19 @@
+{
+  "name": "wordcount",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhoard08/wordcount.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jhoard08/wordcount/issues"
+  },
+  "homepage": "https://github.com/jhoard08/wordcount#readme"
+}
