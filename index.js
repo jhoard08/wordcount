@@ -1,26 +1,30 @@
-const events = require('events');
 const fs = require('fs');
 const readline = require('readline');
+
+const wordCounter = Object.create(null);
 
 (async function processLineByLine() {
   try {
     const rl = readline.createInterface({
-      input: fs.createReadStream('testfile.txt'),
-      crlfDelay: Infinity
+      input: fs.createReadStream('testfile.txt')
     });
 
-    rl.on('line', (line) => {
-      console.log(`${line.toLowerCase()}`);
+    rl.on('line', line => {
+        line.toLowerCase().split(' ').forEach(word => {
+            if (!word) return;
+            wordCounter[word] = (wordCounter[word] || 0) + 1;
+          });
+    });
+    await rl.on("close", () => {
+        let result = Object.entries(wordCounter)
+          .sort((a, b) =>  b[1] - a[1])
+          .map(entry => `${entry[0]} ${entry[1]}`)
+          .join("\n");
+    
+        console.log(result);
     });
 
-    await events.once(rl, 'close');
-
-    console.log('Reading file line by line with readline done.');
-    const used = process.memoryUsage().heapUsed / 1024 / 1024;
-    console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
   } catch (err) {
     console.error(err);
   }
 })();
-
-console.log("hello")
